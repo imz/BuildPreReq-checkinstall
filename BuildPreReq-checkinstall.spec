@@ -89,7 +89,12 @@ is forced to add a rebuild of this package to the task.)
 # that has install checks turned off, namely, e2k) also doesn't
 # currently separate *-checkinstall packages into a component.
 
+%build
+printf '%%s\n' '%summary' >SUMMARY
+
 %files
+# to force %%__find_requires
+%doc SUMMARY
 
 %changelog
 * Wed Nov 10 2021 Ivan Zakharyaschev <imz@altlinux.org> 1-alt1
