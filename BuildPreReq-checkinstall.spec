@@ -34,6 +34,8 @@ Summary: Empty package only useful during its build: it installs (and checks) an
 Group: Development/Other
 License: CC0
 
+BuildArch: noarch
+
 %global other_pkg %(sed -Ee 's/BuildPreReq-//' <<<'@name@')
 
 %if_without install_check_in_girar
