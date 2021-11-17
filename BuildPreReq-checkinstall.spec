@@ -38,21 +38,28 @@ BuildArch: noarch
 
 %global other_pkg %(sed -Ee 's/BuildPreReq-//' <<<'@name@')
 
-%if_without install_check_in_girar
-# Simulate an obligatory install check of every new release/build of %%other_pkg
-# in this repository by adding a Requires on it and hence making an unmet dep appear
-# if a new release/build of %%other_pkg is built in a task.
-Requires: %(rpmquery-strictdep %{other_pkg:shescape} || echo TO_SURVIVE_IN_HASHER_INITIALLY)
-BuildRequires(pre): rpmquery-strictdep
-%endif
-
 # The main effect of this package: just install another one during build.
 # (Normally, the "checkinstall" component is not available for installation
 # of the build dependencies. Luckily, the e2k Girar, which is the reason for
 # the existence of this package, doesn't separate *-checkinstall packages.)
 #if_without install_check_in_girar
 BuildPreReq: %other_pkg
+%define confirm_that_other_pkg_has_been_checked \
+This build of this package has actually installed (and hence checked)\
+%other_pkg_strictdep during the build.\
+In other words, this phrase, which you are reading, is a confirmation\
+that %other_pkg_strictdep\
+has passed this kind of install check.
 #endif
+
+# Simulate an obligatory install check of every new release/build of %%other_pkg
+# in this repository by adding a Requires on it and hence making an unmet dep appear
+# if a new release/build of %%other_pkg is built in a task.
+BuildRequires(pre): rpmquery-strictdep
+%global other_pkg_strictdep %(rpmquery-strictdep %{other_pkg:shescape} || echo TO_SURVIVE_IN_HASHER_INITIALLY)
+%if_without install_check_in_girar
+Requires: %other_pkg_strictdep
+%endif
 
 %description
 %summary:
@@ -88,6 +95,7 @@ is forced to add a rebuild of this package to the task.)
 # Girar instance that is of particular instance for us (i.e., the one
 # that has install checks turned off, namely, e2k) also doesn't
 # currently separate *-checkinstall packages into a component.
+%{?confirm_that_other_pkg_has_been_checked}
 
 %files
 
