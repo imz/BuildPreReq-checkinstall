@@ -42,7 +42,7 @@ BuildArch: noarch
 # Simulate an obligatory install check of every new release/build of %%other_pkg
 # in this repository by adding a Requires on it and hence making an unmet dep appear
 # if a new release/build of %%other_pkg is built in a task.
-Requires: %(rpmquery-strictdep %{other_pkg:shescape})
+Requires: %(rpmquery-strictdep %{other_pkg:shescape} || echo TO_SURVIVE_IN_HASHER_INITIALLY)
 BuildRequires(pre): rpmquery-strictdep
 %endif
 
