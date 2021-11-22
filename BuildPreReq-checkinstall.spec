@@ -42,7 +42,7 @@ BuildArch: noarch
 # (Normally, the "checkinstall" component is not available for installation
 # of the build dependencies. Luckily, the e2k Girar, which is the reason for
 # the existence of this package, doesn't separate *-checkinstall packages.)
-#if_without install_check_in_girar
+%if_without install_check_in_girar
 BuildPreReq: %other_pkg
 %define confirm_that_other_pkg_has_been_checked \
 This build of this package has actually installed (and hence checked)\
@@ -50,7 +50,7 @@ This build of this package has actually installed (and hence checked)\
 In other words, this phrase, which you are reading, is a confirmation\
 that %other_pkg_strictdep\
 has passed this kind of install check.
-#endif
+%endif
 
 # Simulate an obligatory install check of every new release/build of %%other_pkg
 # in this repository by adding a Requires on it and hence making an unmet dep appear
@@ -94,23 +94,23 @@ instance with install checks turned on would be redundant and cause an
 unneeded excessive run of the tests in a single task and
 an extra burden for the maintainer.)
 
-# Remark. The main idea of this package (to run tests during build)
-# won't normally work (in the usual instances of Girar or
-# beehive). The obstacle is that the other package whose scripts run
-# tests is usually a *-checkinstall package; but normally the
-# "checkinstall" component is not available for installation of the
-# build dependencies. However, by lucky coincidence, the Girar
-# instance that is of particular instance for us (i.e., the one that
-# has install checks turned off, namely, e2k) also doesn't currently
-# separate *-checkinstall packages into a repository component.
-#
-# (There is another case where this deficiency is even for the better:
-# if one of the transitively required *-checkinstall packages
-# already runs the tests during its build, then running them once
-# again would be a redundant, excessive run of the tests, at least,
-# in beehive. Example: rpminstall-checkinstall req'd by rpm-checkinstall.
-# This isn't so much a concern in a Girar task, because
-# rpminstall-checkinstall isn't usually built in the same task as rpm.)
+Remark. The main idea of this package (to run tests during build)
+won't normally work (in the usual instances of Girar or
+beehive). The obstacle is that the other package whose scripts run
+tests is usually a *-checkinstall package; but normally the
+"checkinstall" component is not available for installation of the
+build dependencies. However, by lucky coincidence, the Girar
+instance that is of particular instance for us (i.e., the one that
+has install checks turned off, namely, e2k) also doesn't currently
+separate *-checkinstall packages into a repository component.
+
+(There is another case where this deficiency is even for the better:
+if one of the transitively required *-checkinstall packages
+already runs the tests during its build, then running them once
+again would be a redundant, excessive run of the tests, at least,
+in beehive. Example: rpminstall-checkinstall req'd by rpm-checkinstall.
+This isn't so much a concern in a Girar task, because
+rpminstall-checkinstall isn't usually built in the same task as rpm.)
 
 %files
 
