@@ -33,6 +33,7 @@ Release: alt1
 Summary: Empty package only useful during its build: it installs (and checks) another pkg
 Group: Development/Other
 License: CC0
+URL: http://git.altlinux.org/people/imz/packages/BuildPreReq-checkinstall.git
 
 BuildArch: noarch
 
