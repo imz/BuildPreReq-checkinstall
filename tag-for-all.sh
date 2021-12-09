@@ -1,0 +1,13 @@
+#!/bin/sh -efuC
+
+readonly TAG="$1"; shift
+
+for n in \
+    apt-BuildPreReq-basic-checkinstall \
+    apt-BuildPreReq-checkinstall \
+    apt-BuildPreReq-heavyload-checkinstall \
+    rpm-BuildPreReq-checkinstall \
+
+do
+    ./tag-for-name.sh "$n" "$TAG" "$@"
+done
