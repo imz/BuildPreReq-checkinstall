@@ -5,7 +5,7 @@ readonly TAG="$1"; shift
 for n in \
     apt-BuildPreReq-basic-checkinstall \
     apt-BuildPreReq-checkinstall \
-    apt-BuildPreReq-heavyload-checkinstall \
+    apt-BuildPreReq-xxtra-heavy-load-checkinstall \
     rpm-BuildPreReq-checkinstall \
 
 do
