@@ -6,6 +6,7 @@ for n in \
     apt-BuildPreReq-basic-checkinstall \
     apt-BuildPreReq-checkinstall \
     apt-BuildPreReq-xxtra-heavy-load-checkinstall \
+    apt-BuildPreReq-under-pkdirect-checkinstall \
     rpm-BuildPreReq-checkinstall \
 
 do
