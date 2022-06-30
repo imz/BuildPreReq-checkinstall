@@ -60,6 +60,14 @@ BuildRequires(pre): rpmquery-strictdep
 %global other_pkg_strictdep %(rpmquery-strictdep %{other_pkg:shescape} || echo TO_SURVIVE_IN_HASHER_INITIALLY)
 %if_without install_check_in_girar
 Requires: %other_pkg_strictdep
+%else
+# Just ensure that the other pkg (with the specified name) exists. It must be
+# present in the repo whenever this pkg is in the repo.
+Requires: %other_pkg
+# (A downside of this Requires is that the install check of this package would
+# trigger extra builder work, which would repeat the install check of the other
+# pkg. But this won't happen often in the main Girar, and will save maintainers
+# from some surprises/errors in the committed names of the other pkg.)
 %endif
 
 %description
