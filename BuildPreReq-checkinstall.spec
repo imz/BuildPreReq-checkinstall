@@ -43,6 +43,10 @@ BuildArch: noarch
 # (Normally, the "checkinstall" component is not available for installation
 # of the build dependencies. Luckily, the e2k Girar, which is the reason for
 # the existence of this package, doesn't separate *-checkinstall packages.)
+BuildRequires(pre): apt-clear-sources-filetrigger-for-checkinstall
+# BuildRequires(pre) for a pkg that--to have effect--must be in another
+# transaction or at least definitely ordered before our *-checkinstall pkg
+# that requires this effect.
 %if_without install_check_in_girar
 BuildPreReq: %other_pkg
 %define confirm_that_other_pkg_has_been_checked \
