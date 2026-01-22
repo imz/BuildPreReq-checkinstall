@@ -17,9 +17,9 @@
 %if_without check
 %def_without install_check_in_girar
 %endif
-# * then we switch on the special behavior of our package
-# to simulate an install check,
-# * else (by default) we switch it off.
+# * then we switch the special behavior of our package
+# to simulate an install check ON,
+# * else (by default) we switch it OFF.
 # (The %%def_with below won't have an effect if any of the %%def_without above
 # have been evaluated.)
 %def_with install_check_in_girar
