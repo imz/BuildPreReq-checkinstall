@@ -29,8 +29,8 @@
 # %%name should end with -checkinstall, because this is a special package,
 # which shouldn't be visible by normal users.
 Name: %(sed -Ee 's/(-checkinstall|)$/-checkinstall/' <<<@name@)
-Version: 1
-Release: alt2
+Version: 1.1
+Release: alt1
 
 Summary: Empty package only useful during its build: it installs (and checks) another pkg
 Group: Development/Other
@@ -47,7 +47,7 @@ BuildArch: noarch
 # (Normally, the "checkinstall" component is not available for installation
 # of the build dependencies. Luckily, the e2k Girar, which is the reason for
 # the existence of this package, doesn't separate *-checkinstall packages.)
-%if_without install_check_in_girar
+#if_without install_check_in_girar
 BuildPreReq: %other_pkg
 %define confirm_that_other_pkg_has_been_checked \
 This build of this package has actually installed (and hence checked)\
@@ -55,7 +55,7 @@ This build of this package has actually installed (and hence checked)\
 In other words, this phrase, which you are reading, is a confirmation\
 that %other_pkg_strictdep\
 has passed this kind of install check.
-%endif
+#endif
 
 # Simulate an obligatory install check of every new release/build of %%other_pkg
 # in this repository by adding a Requires on it and hence making an unmet dep appear
@@ -128,6 +128,9 @@ rpminstall-checkinstall isn't usually built in the same task as rpm.)
 %files
 
 %changelog
+* Thu Aug 13 2026 Ivan Zakharyaschev <imz@altlinux.org> 1.1-alt1
+- Do the actual tests when built for main Sisyphus and in beehive. (WON'T WORK?)
+
 * Thu Dec 09 2021 Ivan Zakharyaschev <imz@altlinux.org> 1-alt2
 - Added an URL.
 
