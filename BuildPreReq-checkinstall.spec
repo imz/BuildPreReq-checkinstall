@@ -40,6 +40,8 @@ URL: http://git.altlinux.org/people/imz/packages/BuildPreReq-checkinstall.git
 BuildArch: noarch
 
 %global other_pkg %(sed -Ee 's/BuildPreReq-//' <<<@name@)
+%global other_pkg_shescape %(printf '%%q' "$(sed -Ee 's/BuildPreReq-//' <<<@name@)")
+# we could define other_pkg %(echo %other_pkg_shescape)
 
 # The main effect of this package: just install another one during build.
 # (Normally, the "checkinstall" component is not available for installation
@@ -59,7 +61,7 @@ has passed this kind of install check.
 # in this repository by adding a Requires on it and hence making an unmet dep appear
 # if a new release/build of %%other_pkg is built in a task.
 BuildRequires(pre): rpmquery-strictdep
-%global other_pkg_strictdep %(rpmquery-strictdep %{other_pkg:shescape} || echo TO_SURVIVE_IN_HASHER_INITIALLY)
+%global other_pkg_strictdep %(rpmquery-strictdep %other_pkg_shescape || echo TO_SURVIVE_IN_HASHER_INITIALLY)
 %if_without install_check_in_girar
 Requires: %other_pkg_strictdep
 %else
