@@ -28,7 +28,7 @@
 
 # %%name should end with -checkinstall, because this is a special package,
 # which shouldn't be visible by normal users.
-Name: %(sed -Ee 's/(-checkinstall|)$/-checkinstall/' <<<'@name@')
+Name: %(sed -Ee 's/(-checkinstall|)$/-checkinstall/' <<<@name@)
 Version: 1
 Release: alt2
 
@@ -39,7 +39,7 @@ URL: http://git.altlinux.org/people/imz/packages/BuildPreReq-checkinstall.git
 
 BuildArch: noarch
 
-%global other_pkg %(sed -Ee 's/BuildPreReq-//' <<<'@name@')
+%global other_pkg %(sed -Ee 's/BuildPreReq-//' <<<@name@)
 
 # The main effect of this package: just install another one during build.
 # (Normally, the "checkinstall" component is not available for installation
